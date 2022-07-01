@@ -4,6 +4,6 @@ services:
     build: app
     volumes:
       - ./app:/app
-    tty: true
+    entrypoint: ./entrypoint.sh
     ports:
       - "3000:3000"
