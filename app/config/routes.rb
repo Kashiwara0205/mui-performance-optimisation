@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :samples, only: [:index]
+  resources :muis, only: [:index]
+  resources :originals, only: [:index]
 end
