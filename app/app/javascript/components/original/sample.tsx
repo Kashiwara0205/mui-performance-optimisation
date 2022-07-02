@@ -22,56 +22,38 @@ const Sample = ()=>{
     setTableData([])
   }
 
+  const renderUseAutocomplete = (params) =>{
+    return (<div>
+      <UseAutocomplete width={200} value={params.row.name} options={selectData}></UseAutocomplete>
+    </div>)
+  }
+
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', width: 300 },
     { field: 'action', 
       width: 300,
       headerName: 'SelectBox-original', 
-      renderCell: (params) => {
-        return (<div>
-          <UseAutocomplete value={params.row.name} options={selectData}></UseAutocomplete>
-        </div>)
-      }
+      renderCell: renderUseAutocomplete
     },
     { field: 'action2', 
     width: 300,
     headerName: 'SelectBox2', 
-    renderCell: (params) => {
-      return (<div>
- <UseAutocomplete value={params.row.name} options={selectData}></UseAutocomplete>
-
-      </div>)
-    }
+    renderCell: renderUseAutocomplete
     },
     { field: 'action3', 
     width: 300,
     headerName: 'SelectBox3', 
-    renderCell: (params) => {
-      return (<div>
- <UseAutocomplete value={params.row.name} options={selectData}></UseAutocomplete>
-
-      </div>)
-    }
+    renderCell: renderUseAutocomplete
     },
     { field: 'action4', 
     width: 300,
     headerName: 'SelectBox4', 
-    renderCell: (params) => {
-      return (<div>
- <UseAutocomplete value={params.row.name} options={selectData}></UseAutocomplete>
-
-      </div>)
-    }
+    renderCell: renderUseAutocomplete
     },
     { field: 'action5', 
     width: 300,
     headerName: 'SelectBox5', 
-    renderCell: (params) => {
-      return (<div>
- <UseAutocomplete value={params.row.name} options={selectData}></UseAutocomplete>
-
-      </div>)
-    }
+    renderCell: renderUseAutocomplete
     },
   ];
 
