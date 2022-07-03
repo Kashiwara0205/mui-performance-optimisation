@@ -47,15 +47,16 @@ type Props = {
   width
 }
 export default function UseAutocomplete(props: Props) {
-  const deleteButtonRef = useRef(null)
 
-  const [inputValue, setInputValue] = useState(props.value);
+  const deleteButtonRef = useRef(null)
+  const [inputValue, setInputValue] = useState(0);
+
+  const [inputLabel, setInputLabel] = useState("label1");
   const [filterExp, setFilterExp] = useState("");
   const [avaiableListBox, setAvaiableListBox] = useState(true);
 
   const isOptionEqualToValue = (va1, va2) =>{ return true }
 
-  const getOptionLabel = (option: string) =>{ return option}
 
   const {
     getRootProps,
@@ -65,44 +66,51 @@ export default function UseAutocomplete(props: Props) {
     groupedOptions,
   } = useAutocomplete({
     id: 'use-autocomplete-demo',
-    value: inputValue,
+    value: inputLabel,
     options: props.options,
-    getOptionLabel: getOptionLabel,
     isOptionEqualToValue:isOptionEqualToValue
   });
 
   const onCLickLi = (option)=>{
-    setInputValue(option)
+      console.log("onCLickLi")
+    setInputLabel(option["label"])
+    setInputValue(option["value"])
+
     setAvaiableListBox(false)
+
+    console.log(option["value"])
   }
 
   const onClickDelete = ()=>{
-    setInputValue("")
+      console.log("onClickDelete")
+    setInputLabel("")
     deleteButtonRef.current.focus()
     deleteButtonRef.current.blur()
     setAvaiableListBox(false)
   }
 
   const onChangeInput = (e) =>{
+      console.log("onChangeInput")
     setAvaiableListBox(true)
-    setInputValue(e.target.value)
+    setInputLabel(e.target.value)
     setFilterExp(".*" + e.target.value + ".*")
   }
 
   const onClickInput = (e) =>{
+      console.log("onClickInput")
     setAvaiableListBox(true)
-    console.log("onClickInput")
-    setInputValue(e.target.value)
+    setInputLabel(e.target.value)
     setFilterExp("")
   }
 
   const onKeyDownCapture = (e) =>{
+      console.log("onKeyDownCapture")
     e.stopPropagation();
   }
 
   const fileter = (options) =>{
     const expObj = new RegExp(filterExp);
-    const newOptions = options.filter((value)=> { return value.match(expObj) })
+    const newOptions = options.filter((value)=> { return value["label"].match(expObj) })
     return newOptions
   }
 
@@ -117,7 +125,7 @@ export default function UseAutocomplete(props: Props) {
         <div>
           <Listbox  {...getListboxProps()} style={{"width": props.width}}>
             {(fileterdGroupOptions as typeof props.options).map((option, index) => (
-              <li {...getOptionProps({ option, index })} onClick={()=>{onCLickLi(option)}} >&nbsp;{option}</li>
+              <li {...getOptionProps({ option, index })} onClick={()=>{onCLickLi(option)}} >&nbsp;{option["label"]}</li>
             ))}
           </Listbox>
         </div>
@@ -128,11 +136,11 @@ export default function UseAutocomplete(props: Props) {
       )
     }
   }
-  
+
   return (
     <div onKeyDownCapture={onKeyDownCapture}>
       <div {...getRootProps()}>
-        <Input {...getInputProps()} style={{ width: props.width}} onClick={onClickInput} value={inputValue} onChange={onChangeInput}/>
+        <Input {...getInputProps()} style={{ width: props.width}} onClick={onClickInput} value={inputLabel} onChange={onChangeInput}/>
         <Button ref={deleteButtonRef} onClick={onClickDelete}> x </Button>
       </div>
       <div >

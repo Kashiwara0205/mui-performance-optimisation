@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { createSelectData, createTableData } from "../../libs/create_test_data"
+import { createSelectObjData, createTableObjData } from "../../libs/create_test_data"
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
@@ -7,14 +7,15 @@ import UseAutocomplete from "./custom"
 
 const Sample = ()=>{
 
-  const [selectData, setDelectData] = useState(createSelectData(500));
-  const [tableData, setTableData] = useState(createTableData(selectData, 50));
-
+  const [selectData, setDelectData] = useState(createSelectObjData(500));
+  console.log(selectData)
+  const [tableData, setTableData] = useState(createTableObjData(selectData, 2));
+  console.log(tableData)
 
   const onClick = ()=>{
-    const data = createSelectData(500)
+    const data = createSelectObjData(2)
     setDelectData(data)
-    setTableData(createTableData(data, 50))
+    setTableData(createTableObjData(data, 2))
   }
 
   const onClickReset = ()=>{
